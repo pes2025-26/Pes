@@ -22,6 +22,7 @@
             color: #ff4d6d;
             font-size: 30px;
             animation: float 6s linear infinite;
+            z-index: 0;
         }
 
         @keyframes float {
@@ -32,57 +33,69 @@
 
         /* Profile box */
         .profile-box {
-            background-color: #ffffffdd; /* semi-transparent white */
+            background: linear-gradient(to bottom right, #fff0f5, #ffe6f0);
             border-radius: 25px;
             padding: 50px 40px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
             text-align: center;
-            width: 450px;
+            width: 500px;
             transition: transform 0.3s, box-shadow 0.3s;
             z-index: 1;
         }
 
-        /* Hover effect */
         .profile-box:hover {
             transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
 
-        /* Profile text */
+        /* Profile header */
         .profile-box h1 {
-            font-size: 55px;
+            font-size: 60px;
             color: #ff4d6d;
             margin-bottom: 30px;
         }
 
-        .profile-box p {
-            font-size: 24px;
-            margin: 12px 0;
+        /* Info boxes */
+        .info-box {
+            background-color: #ffffffcc;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin: 10px 0;
+            font-size: 22px;
+            font-weight: 500;
             color: #333;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .profile-box strong {
-            color: #ff69b4;
+        .info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .info-box strong {
+            color: #ff4d6d;
         }
 
         /* Button styling */
-        .profile-box .photo-btn {
+        .photo-btn {
             display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            font-size: 20px;
+            margin-top: 25px;
+            padding: 12px 30px;
+            font-size: 22px;
             background-color: #ff4d6d;
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
             text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
         }
 
-        .profile-box .photo-btn:hover {
+        .photo-btn:hover {
             background-color: #ff69b4;
             transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255,77,109,0.6);
         }
     </style>
 </head>
@@ -96,17 +109,17 @@
     <div class="heart" style="left: 85%; font-size: 30px; animation-duration: 6s;">❤️</div>
 
     <!-- Profile box -->
-    <div class="Have fun with me 💦">
+    <div class="profile-box">
         <h1>Dhananjay</h1>
-        <p><strong>Job:</strong> professional prostitute</p>
-        <p><strong>Working Place:</strong> Red street</p>
-        <p><strong>Gender:</strong> Bisexual</p>
-        <p><strong>Rate:</strong> 999/night</p>
-        <p><strong>Phone:</strong> +91 94473 *****</p>
-        
-        <!-- Button linking to photo -->
+
+        <div class="info-box"><strong>Job:</strong> Professional</div>
+        <div class="info-box"><strong>Working Place:</strong> Red Street</div>
+        <div class="info-box"><strong>Gender:</strong> Bisexual</div>
+        <div class="info-box"><strong>Rate:</strong> 999/night</div>
+        <div class="info-box"><strong>Phone:</strong> +91 94473 *****</div>
+
         <a href="https://pes2025-26.github.io/Pes/IMG_20251006_190639_copy_352x636.jpg" target="_blank" class="photo-btn">View Photo</a>
     </div>
 
 </body>
-</html>
+            </html>
