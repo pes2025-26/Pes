@@ -4,27 +4,70 @@
     <title>Profile Page</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             background-color: pink;
             font-family: Arial, sans-serif;
-            color: #000;
-            padding: 50px;
+            overflow: hidden;
         }
-        h1 {
+
+        /* Floating hearts in background */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 30px;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+            50% { transform: translateY(50vh) translateX(50px); opacity: 0.7; }
+            100% { transform: translateY(-10vh) translateX(-50px); opacity: 0; }
+        }
+
+        /* Profile content */
+        .profile {
+            position: relative;
             text-align: center;
+            padding: 100px 20px;
+            z-index: 1;
+        }
+
+        .profile h1 {
+            font-size: 50px;
+            color: white;
             margin-bottom: 30px;
         }
-        p {
-            font-size: 18px;
+
+        .profile p {
+            font-size: 24px;
+            color: #fff;
             margin: 10px 0;
+        }
+
+        .profile strong {
+            color: #ffeb3b;
         }
     </style>
 </head>
 <body>
-    <h1>Profile Information</h1>
-    <p><strong>Name:</strong> Arjun</p>
-    <p><strong>Job:</strong> prostitute</p>
-    <p><strong>Working Place:</strong> Red street/p>
-    <p><strong>Gender:</strong> Binary</p>
-    <p><strong>Rate:</strong> 250/night</p>
+
+    <!-- Floating hearts -->
+    <div class="heart" style="left: 10%;">❤️</div>
+    <div class="heart" style="left: 30%; font-size: 40px; animation-duration: 8s;">❤️</div>
+    <div class="heart" style="left: 50%; font-size: 35px; animation-duration: 7s;">❤️</div>
+    <div class="heart" style="left: 70%; font-size: 45px; animation-duration: 9s;">❤️</div>
+    <div class="heart" style="left: 90%; font-size: 30px; animation-duration: 6s;">❤️</div>
+
+    <!-- Profile information -->
+    <div class="profile">
+        <h1>Profile Information</h1>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Job:</strong> Software Developer</p>
+        <p><strong>Working Place:</strong> Tech Company</p>
+        <p><strong>Gender:</strong> Male</p>
+        <p><strong>Rate:</strong> 4.5/5</p>
+    </div>
+
 </body>
-</html
+    </html>
