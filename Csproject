@@ -1,8 +1,11 @@
 import mysql.connector as sql
 import datetime as dt
 
+# Connect to MySQL
 con = sql.connect(host='localhost', user='root', passwd='root', database='COMPANY')
 cur = con.cursor()
+
+# Create login table if not exists
 cur.execute("""
 CREATE TABLE IF NOT EXISTS log_id(
     username VARCHAR(25) PRIMARY KEY,
@@ -11,88 +14,117 @@ CREATE TABLE IF NOT EXISTS log_id(
 )
 """)
 
+# Create employee table if not exists
+cur.execute("""
+CREATE TABLE IF NOT EXISTS employee(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(30),
+    department VARCHAR(30),
+    performance INT,
+    salary FLOAT,
+    phno BIGINT
+)
+""")
+
 print("================================================================= Welcome to Employee Management System ===============================================================")
 
 def boot():
     print(dt.datetime.now())
-    print("1. REGISTER\n")
-    print("2. LOGIN\n")
+    print("\n1. REGISTER")
+    print("2. LOGIN")
     print("3. EXIT\n")
     b = int(input("Enter your choice: "))
     return b
 
+
 def reg():
     name = input("Enter your Username: ")
-    password = int(input("Enter digit password: "))
+    password = input("Enter password: ")  # no need to force int
     gmail = input("Enter your Gmail: ")
     val = (name, password, gmail)
-    v_SQLInsert = "INSERT INTO log_id (username,password,gmail) VALUES {}".format(val)
-    cur.execute(v_SQLInsert)
+    cur.execute("INSERT INTO log_id (username, password, gmail) VALUES (%s, %s, %s)", val)
     con.commit()
     print("USER created successfully!")
 
+
 def log():
     name = input("Enter the Username: ")
-    password = int(input("Enter the Password: "))
-    v_Sql_sel = "SELECT * FROM log_id WHERE password='{}' AND username='{}'".format(password, name)
-    cur.execute(v_Sql_sel)
-    if cur.fetchall() == []:
+    password = input("Enter the Password: ")
+    cur.execute("SELECT * FROM log_id WHERE username=%s AND password=%s", (name, password))
+    data = cur.fetchall()
+    if data == []:
         print("Invalid username or password")
     else:
         print("Login successful!")
-        menu()
+        while True:
+            menu()
+
 
 def menu():
-    print("\n------------------- EMPLOYEE MANAGEMENT SYSTEM -------------------")
-    print("1. Add Employee")
-    print("2. View All Employees")
-    print("3. View Employee Details")
-    print("4. Update Employee")
-    print("5. Delete Employee")
-    print("6. Logout\n")
+    try:
+        print("\n------------------- EMPLOYEE MANAGEMENT SYSTEM -------------------")
+        print("1. Add Employee")
+        print("2. View All Employees")
+        print("3. View Employee Details")
+        print("4. Update Employee")
+        print("5. Delete Employee")
+        print("6. Logout\n")
 
-    ch = int(input("Enter Your Choice: "))
-    if ch == 1:
-        addemp()
-    elif ch == 2:
-        viewall()
-    elif ch == 3:
-        viewempdet()
-    elif ch == 4:
-        upd()
-    elif ch == 5:
-        dels()
-    elif ch == 6:
-        logout()
-    else:
-        print("Invalid option")
+        ch = int(input("Enter Your Choice: "))
+        if ch == 1:
+            addemp()
+        elif ch == 2:
+            viewall()
+        elif ch == 3:
+            viewempdet()
+        elif ch == 4:
+            upd()
+        elif ch == 5:
+            dels()
+        elif ch == 6:
+            logout()
+            break  # stop the inner loop
+        else:
+            print("Invalid option")
+    except ValueError:
+        print("Enter values correctly")
+        menu()
+
 
 def logout():
     print("Logging out...")
+    return
+
 
 def dels():
     ide = int(input("Enter employee id to delete: "))
-    de = "DELETE FROM employee WHERE id={}".format(ide)
-    cur.execute(de)
+    cur.execute("DELETE FROM employee WHERE id=%s", (ide,))
     con.commit()
     print("Employee deleted successfully.")
 
+
 def viewall():
-    cur.execute("SELECT name FROM employee")
+    cur.execute("SELECT id, name FROM employee")
     x = cur.fetchall()
     for i in x:
         print(i)
 
+
 def addemp():
-    name = input("Enter name: ")
-    dept = input("Enter department: ")
-    perf = int(input("Rate performance out of 10: "))
-    salary = float(input("Enter salary: "))
-    ph = int(input("Enter phone number: "))
-    det = (name, dept, perf, salary, ph)
-    cur.execute("INSERT INTO employee(name,department,performance,salary,phno) VALUES {}".format(det))
-    con.commit()
-    print("Employee added successfully!")
+    try:
+        name = input("Enter name: ")
+        dept = input("Enter department: ")
+        perf = int(input("Rate performance out of 10: "))
+        salary = float(input("Enter salary: "))
+        ph = int(input("Enter phone number: "))
+        det = (name, dept, perf, salary, ph)
+        cur.execute("INSERT INTO employee(name, department, performance, salary, phno) VALUES (%s, %s, %s, %s, %s)", det)
+        con.commit()
+        print("Employee added successfully!")
+    except ValueError:
+        print("Enter values correctly")
+        addemp()
+
 
 def viewempdet():
     cur.execute("SELECT * FROM employee")
@@ -100,32 +132,32 @@ def viewempdet():
     for i in x:
         print(i)
 
+
 def upd():
     print("\nEnter the detail you want to update:")
     print("1. Salary")
     print("2. Department")
     print("3. Performance")
+
     ch = int(input("Enter choice: "))
     ide = int(input("Enter employee ID: "))
 
     if ch == 1:
         sal = float(input("Enter new salary: "))
-        upd1 = "UPDATE employee SET salary={} WHERE id={}".format(sal, ide)
-        cur.execute(upd1)
+        cur.execute("UPDATE employee SET salary=%s WHERE id=%s", (sal, ide))
     elif ch == 2:
         dept = input("Enter new department: ")
-        upd2 = "UPDATE employee SET department='{}' WHERE id={}".format(dept, ide)
-        cur.execute(upd2)
+        cur.execute("UPDATE employee SET department=%s WHERE id=%s", (dept, ide))
     elif ch == 3:
         perf = int(input("Enter new performance: "))
-        upd3 = "UPDATE employee SET performance={} WHERE id={}".format(perf, ide)
-        cur.execute(upd3)
+        cur.execute("UPDATE employee SET performance=%s WHERE id=%s", (perf, ide))
     else:
         print("Invalid option")
         return
 
     con.commit()
     print("Details updated successfully.")
+
 
 # Main loop
 while True:
