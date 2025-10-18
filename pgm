@@ -1,0 +1,37 @@
+import mysql.connector as sql
+con=sql.connect(host='localhost',user='root',passwd='school')
+cur=con.cursor()
+cur.execute("create database if not exist,company")
+cur.execute("use company")
+cur.execute("create table if not exists company (empno int,name varchar(20),dept varchar(20),salary BIGINT)")
+con.commit()
+choice=None
+while choice !=0:
+    print("1.Add record")
+    print("2.Display record")
+    print("3.exit")       
+    choice=int(input("enter chhoice"))
+    if choice==1:
+        e=int(input("enter empno"))
+        n=int(input("enter name"))
+        d=int(input("enter dept"))
+        s=int(input("enter salary"))
+        q='insert into employee values({},"{}","{}",{})'.format(e,n,d,s)
+        cur.execute(q)
+        con.commit()
+        print("##Data saved##")
+    elif choice==2:
+        q="select * from employee"
+        cur.execute(q)
+        result=cur.fetchall()
+        print("%10s"%"empno","%20s"%"name","%15s"%"dept","%10s"%"salary")
+        for row in result:
+            print("%10s"%"row[0]","%20s"%"row[1]","%15s"%"row[2]","%10s"%"row[3]")
+    elif choice==0:
+        con.close()
+        print("bye")
+    else:
+        print("invalid syntax")
+
+
+
