@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Elephant for Rent — Profile</title>
+  <style>
+    :root{
+      --bg:#f6fbff;
+      --card:#ffffff;
+      --accent:#6aa7ff;
+      --muted:#6b7280;
+      --shadow: 0 8px 24px rgba(20,40,80,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,var(--bg),#eef6ff);display:flex;align-items:center;justify-content:center;padding:28px}
+
+    .card{width:100%;max-width:920px;background:var(--card);border-radius:18px;padding:28px;box-shadow:var(--shadow);display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start}
+
+    /* Elephant panel */
+    .ele-panel{background:linear-gradient(180deg,#dff1ff,#ffffff);border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .ele-svg{width:240px;height:180px}
+    .speech{align-self:flex-start;background:var(--accent);color:white;padding:10px 14px;border-radius:14px;font-weight:600;box-shadow:0 6px 18px rgba(106,167,255,0.24)}
+    .badge{font-size:13px;color:var(--muted)}
+
+    /* Details */
+    .details{padding:12px}
+    .title{display:flex;align-items:center;justify-content:space-between}
+    .title h2{margin:0;font-size:20px}
+    .meta{color:var(--muted);font-size:14px;margin-top:6px}
+    dl{display:grid;grid-template-columns:120px 1fr;gap:8px 18px;margin:18px 0}
+    dt{color:var(--muted);font-weight:600}
+    dd{margin:0}
+
+    .controls{display:flex;gap:12px;align-items:center;margin-top:8px}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--accent);border:2px solid rgba(106,167,255,0.18)}
+    .attach{display:flex;gap:8px;align-items:center}
+    input[type=file]{display:none}
+    .preview{width:100%;height:220px;background:#f3f7fb;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;border:1px dashed #e6eef9}
+
+    @media (max-width:800px){
+      .card{grid-template-columns:1fr;}
+      .ele-svg{width:200px;height:150px}
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="Elephant profile card">
+
+    <div class="ele-panel">
+      <!-- Simple inline elephant illustration (stylized) -->
+      <svg class="ele-svg" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#9fc7ff"/><stop offset="1" stop-color="#6aa7ff"/></linearGradient>
+        </defs>
+        <g transform="translate(0 20) scale(0.9)">
+          <ellipse cx="300" cy="340" rx="220" ry="70" fill="#cfe9ff"/>
+          <g transform="translate(80,40)">
+            <ellipse cx="270" cy="210" rx="160" ry="110" fill="#dfeefc"/>
+            <ellipse cx="130" cy="220" rx="110" ry="80" fill="#d0e8ff"/>
+            <ellipse cx="250" cy="170" rx="40" ry="30" fill="#6d7b8a"/>
+            <rect x="180" y="170" width="130" height="28" rx="14" fill="#d0e8ff" transform="rotate(-14 245 184)"/>
+            <!-- trunk -->
+            <path d="M150 200 q-20 40 20 60 q40 20 70 -10 q30 -30 10 -50" fill="#d0e8ff"/>
+            <circle cx="115" cy="170" r="18" fill="#323b45"/>
+          </g>
+        </g>
+      </svg>
+
+      <div class="speech" id="statusBubble">I'm available for rent 🐘</div>
+      <div class="badge">Looking for short-term photo shoots, events & educational visits</div>
+
+      <div style="width:100%;padding-top:8px">
+        <div class="preview" id="previewArea">No picture loaded — click "View picture" or attach a file</div>
+      </div>
+
+      <div style="width:100%;display:flex;justify-content:center;margin-top:10px">
+        <div class="controls">
+          <button class="btn" id="viewBtn">View picture</button>
+          <label class="btn secondary attach" for="fileInput" tabindex="0">Attach picture
+            <input type="file" id="fileInput" accept="image/*" />
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="details">
+      <div class="title">
+        <div>
+          <h2 id="elephant Name">Name: Aadi</h2>
+          <div class="meta">Gentle, photogenic and great with kids</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:700;color:var(--accent);">₹1,500 / hour</div>
+          <div style="color:var(--muted);font-size:13px">(negotiable)</div>
+        </div>
+      </div>
+
+      <dl>
+        <dt>Favourite food</dt>
+        <dd id="favFood">Biriyani</dd>
+        <dt>Living place</dt>
+        <dd id="living">Easthill Sanctuary</dd>
+        <dt>Gender</dt>
+        <dd id="gender">male</dd>
+        <dt>Fee</dt>
+        <dd id="fee">₹1,500 per hour (handler fee included)</dd>
+        <dt>Availability</dt>
+        <dd id="avail">Weekdays 9:00 — 17:00</dd>
+      </dl>
+
+      <p style="color:var(--muted);margin-top:6px">Quick note: handlers accompany all bookings. Safety first — children should be supervised near the elephant.</p>
+
+      <div style="margin-top:18px;display:flex;gap:12px">
+        <button class="btn" id="bookBtn">Request booking</button>
+        <button class="btn secondary" id="contactBtn">Contact handler</button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // This version: "View picture" opens a new browser tab/window that displays the picture and details.
+    // If the user attached a picture it will open a new page showing the uploaded image; otherwise a default image page opens.
+
+    const viewBtn = document.getElementById('viewBtn');
+    const previewArea = document.getElementById('previewArea');
+    const fileInput = document.getElementById('fileInput');
+
+    // store uploaded image URL (object URL) and filename
+    let uploaded = null;
+    let uploadedName = '';
+
+    viewBtn.addEventListener('click', ()=>{
+      // open a new window/tab and write a simple page with the image and fee/details
+      const win = window.open('', '_blank');
+      if(!win) { alert('Popup blocked — please allow popups for this page.'); return }
+
+      const name = document.getElementById('eleName').textContent.replace('Name: ','');
+      const food = document.getElementById('favFood').textContent;
+      const place = document.getElementById('living').textContent;
+      const gender = document.getElementById('gender').textContent;
+      const fee = document.getElementById('fee').textContent;
+
+      let imgHtml = '';
+      if(uploaded){
+        // show the uploaded image
+        imgHtml = `<img src="${uploaded}" alt="${uploadedName || name}" style="max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto;" />`;
+      } else {
+        // default image (free-to-use illustration link). Replace with your own URL if you want.
+        imgHtml = `<img src="https://pes2025-26.github.io/Pes/IMG_20251018_160653_copy_1024x1351.jpg" alt="Elephant default" style="max-width:100%;height:auto;border-radius:8px;display:block;margin:0 auto;" />`;
+      }
+
+      // build page
+      const html = `
+        <!doctype html>
+        <html>
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <title>${name} — Picture</title>
+          <style>body{font-family:Inter,system-ui,Arial;margin:18px;background:#f7fbff;color:#102030} .container{max-width:900px;margin:0 auto;background:white;padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(10,30,60,0.08)} h1{margin-top:0} .meta{color:#6b7280} .details{margin-top:12px}</style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>${name}</h1>
+            <div class="meta">${fee}</div>
+            <div style="margin-top:12px">${imgHtml}</div>
+            <div class="details">
+              <p><strong>Favourite food:</strong> ${food}</p>
+              <p><strong>Living place:</strong> ${place}</p>
+              <p><strong>Gender:</strong> ${gender}</p>
+            </div>
+            <p style="color:#7b8590;font-size:13px">Note: This page was opened from the rental profile. Handlers accompany all bookings.</p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // write and close the new window document
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    });
+
+    fileInput.addEventListener('change', (e)=>{
+      const f = e.target.files[0];
+      if(!f) return;
+      const url = URL.createObjectURL(f);
+      uploaded = url;
+      uploadedName = f.name;
+
+      // preview area
+      previewArea.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = 'Attached elephant picture';
+      img.style.maxWidth='100%'; img.style.maxHeight='100%'; img.style.borderRadius='8px';
+      previewArea.appendChild(img);
+
+      // update fee or modal name if needed (kept simple)
+      document.getElementById('eleName').textContent = document.getElementById('eleName').textContent;
+    });
+
+    document.getElementById('bookBtn').addEventListener('click', ()=>{
+      alert('Booking request sent to handler. They will contact you with details.');
+    });
+    document.getElementById('contactBtn').addEventListener('click', ()=>{
+      alert('Contacting handler... (demo)');
+    });
+  </script>
+</body>
+</html>
+
+
+Done — I updated the canvas file so the View picture button now opens a new browser tab/page that displays the elephant picture and the fee/detail info. I also added a Fee field to the details list.
+
+You can open the file in the canvas titled "Elephant Rent Theme - Elephant" to copy or preview the updated HTML. Need the new page to open a specific external URL instead of the built-in preview (or want a different default image)? I can change that too.
+
+  
